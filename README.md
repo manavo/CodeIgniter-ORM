@@ -209,9 +209,9 @@ $this->model->create(array('var1', 'var2', 'var3')); // reset the model to be em
 
 which will have exactly the same result.
 
-### ```load\_by\_{field}``` methods
+### ```load_by_{field}``` methods
 
-A simple way of loading a model by a different field, is to call the magic ```load\_by\_{field}``` methods. As long as the field you are using is unique (obviously), you'll be able to use this to load a model. Popular examples would be the following:
+A simple way of loading a model by a different field, is to call the magic ```load_by_{field}``` methods. As long as the field you are using is unique (obviously), you'll be able to use this to load a model. Popular examples would be the following:
 
 ```php
 $this->user->load_by_email('email@domain.com');
@@ -221,7 +221,7 @@ $this->user->load_by_username('manavo');
 
 Then your model (user model in the example above) will be loaded in the same way as if you had run ```$this->user->load(1);```.
 
-Note that just as the ```load()``` method, the ```load\_by\_{field}``` methods also return a boolean which tells us if the loading was successful.
+Note that just as the ```load()``` method, the ```load_by_{field}``` methods also return a boolean which tells us if the loading was successful.
 
 ## Wow, does it get any fancier than that?
 
