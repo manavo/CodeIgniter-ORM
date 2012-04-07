@@ -57,6 +57,7 @@ So, here are some simple examples:
 ### Create new entry
 
 ```php
+// Assuming our posts table has only 3 columns: id, title and text
 $this->post->create();
 $this->post->title = 'Catchy title';
 $this->post->text = 'All your text goes here';
@@ -67,6 +68,7 @@ You've just created a new entry. Pat yourself on the back, and continue reading.
 
 ### Load an entry
 ```php
+// Assuming our posts table has only 3 columns: id, title and text
 $this->post->load(1); // 1 is just an example ID of a post
 echo '<h1>'.$this->post->title.'</h1>';
 echo '<p>'.$this->post->text.'</p>';
@@ -77,6 +79,7 @@ Simple as that!
 ### Update an entry
 
 ```php
+// Assuming our posts table has only 3 columns: id, title and text
 $this->post->load(1); // 1 is just an example ID of a post
 $this->post->title = 'Edited title!';
 $this->post->save();
@@ -100,22 +103,31 @@ Traditionally, many-to-many relationships are created in a new table, including 
 
 Following the table naming convention from the models section, we'll have tables such as users, posts, diaries, tags or categories. So, taking the 2 tables we'll be joining (tags and posts seem like a good example), your relationship table will be __posts_tags__. This is calculated by taking the 2 models we're joining, taking their __plural__, joining them by an __underscore__, in __alphabetical order__. (So the table will be __posts_tags__, _NOT_ ~~tags_posts~~)
 
-The columns you'll add which will be the foreign keys, should be your model name (singular), followed by "\_id". So for our example above, we'd have at least 2 columns, __post_id__ and __tag_id__ (which you will have made a primary key out of their combination already, right?).
+The columns you'll add which will be the foreign keys, should be your model name (singular), followed by "\_id". So for our example above, we'd have at least 2 columns, __post_id__ and __tag_id__.
+
+Also, don't forget to make the id fields foreign keys to their respective tables. And make a primary key out of the 2 columns combined.
 
 ### Add a relationship (assuming the posts and tags already exist)
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
-$this->post->add_tag(3); // 3 is just an example ID of a post
+$this->post->add_tag(3); // 3 is just an example ID of a tag
 ```
 
 So basically what we do, is run on our model the function add_{other model name}. SmartModel looks at the name of the other model, finds the table, finds the relationship table, and adds the entry.
+
+Note that this could be done the other way around as well (add the post to the tag).
+
+```php
+$this->tag->load(3); // 3 is just an example ID of a tag
+$this->tag->add_post(1); // 1 is just an example ID of a post
+```
 
 ### Remove a relationship
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
-$this->post->remove_tag(3); // 3 is just an example ID of a post
+$this->post->remove_tag(3); // 3 is just an example ID of a tag
 ```
 
 As above, we just call remove_{other model name}, and it disappears!
@@ -124,7 +136,7 @@ As above, we just call remove_{other model name}, and it disappears!
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
-if ($this->post->has_tag(3) == true) { // 3 is just an example ID of a post
+if ($this->post->has_tag(3) == true) { // 3 is just an example ID of a tag
     echo 'Has tag';
 } else {
     echo "Doesn't have tag";
@@ -146,6 +158,7 @@ This will give you the rows of the relationship table returned, just as CodeIgni
 
 Why yes, yes it does! However, I haven't written the documentation yet. The things remaining to be documented are:
 
+* load_by_{field}
 * extra fields on relationships
 * magic timestamps
 
