@@ -84,7 +84,7 @@ Traditionally, many-to-many relationships are created in a new table, including 
 
 Following the table naming convention from the models section, and we'll have tables such as users, posts, diaries, tags or categories. So, taking the 2 tables we'll be joining (tags and posts seem like a good example), then your relationship table will be __posts_tags__. This is calculated by taking the 2 models we're joining, taking their __plurals__, joining them by an __underscore__, in __alphabetical order__. (So the table will be __posts_tags__, _NOT_ ~~tags_posts~~)
 
-The columns you'll add which will be the foreign keys, should be your model name (singular), followed by "\\_id". So for our example above, we'd have at least 2 columns, __post_id__ and __tag_id__ (which you will have made a primary key out of their combination already, right?).
+The columns you'll add which will be the foreign keys, should be your model name (singular), followed by "\_id". So for our example above, we'd have at least 2 columns, __post_id__ and __tag_id__ (which you will have made a primary key out of their combination already, right?).
 
 ### Add a relationship (assuming the posts and tags already exist)
 
