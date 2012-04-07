@@ -6,11 +6,24 @@ After trying out several PHP MVC frameworks (including writing my own little one
 
 ## Is this production ready?
 
-Well, I haven't used it in production anywhere yet, so proooooobably not.
+Well, I haven't used it in production anywhere yet, so proooooobably not. However, it does all seem to work so far, so do feel free to try it out!
 
-## Cool, so what does this actually give us?
+## Cool, so what does this actually give me?
 
 Well, it gives you an easy way use your model to load, create, update or delete rows in your database. It also gives you an easy way of adding relationships between your models (many-to-many relationships, I think people also call this HasAndBelongsToMany [HABTM]).
+
+## Installation instructions
+
+Just copy this file to your ```
+application/core/
+```
+directory, and make your models extend MY_Model instead of CI_Model.
+
+### What if I already have a MY_Model function?
+
+Well, that makes things a bit more awkward, but still possible! Simplest way (although might not be the best) would probably be to rename this class to Smart_Model, append it to the bottom of the MY_Model file. Then make the MY_Model class that you have extend Smart_Model.
+
+I haven't tested this, but should theoretically work!
 
 ## Show me the basics
 
@@ -28,7 +41,7 @@ If you want to name your table something else, make sure you override the
 protected $_table = null;
 ```
 
-property of the SmartModel to whatever you want (posts, postings, bananas, or whatever you want). Your table should be __lowercase__ with __underscores__ as a separator.
+property of the SmartModel to whatever you want (posts, postings, bananas, etc) in your new model. Your table should be __lowercase__ with __underscores__ as a separator.
 
 Name your primary key database field __id__.
 
@@ -38,7 +51,7 @@ If it's something else, you should override the
 protected $_primary_key = 'id';
 ```
 
-property of the SmartModel to whatever you want (post_id, user_id, or whatever you want).
+property of the SmartModel to whatever you want (post_id, user_id, etc) in your new model.
 
 ### Examples
 
