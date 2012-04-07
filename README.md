@@ -14,10 +14,7 @@ Well, it gives you an easy way use your model to load, create, update or delete 
 
 ## Installation instructions
 
-Just copy this file to your ```
-application/core/
-```
-directory, and make your models extend MY_Model instead of CI_Model.
+Just copy this file to your ```/application/core/``` directory, and make your models extend MY_Model instead of CI_Model.
 
 ### What if I already have a MY_Model function?
 
@@ -70,7 +67,7 @@ You've just created a new entry. Pat yourself on the back, and continue reading.
 
 ### Load an entry
 ```php
-$this->post->load(1);
+$this->post->load(1); // 1 is just an example ID of a post
 echo '<h1>'.$this->post->title.'</h1>';
 echo '<p>'.$this->post->text.'</p>';
 ```
@@ -80,9 +77,15 @@ Simple as that!
 ### Update an entry
 
 ```php
-$this->post->load(1);
+$this->post->load(1); // 1 is just an example ID of a post
 $this->post->title = 'Edited title!';
 $this->post->save();
+```
+### Delete an entry
+
+```php
+$this->post->load(1); // 1 is just an example ID of a post
+$this->post->delete();
 ```
 
 That pretty much covers the basics!
@@ -93,7 +96,7 @@ Again, let's start with some conventions!
 
 ### Conventions for relationships
 
-Traditionally, many-to-many relationships are created in a new table, including the IDs of the 2 other tables you're referencing. No exception here, wo do that. But there are a few things we have to be specific about.
+Traditionally, many-to-many relationships are created in a new table, including the IDs of the 2 other tables you're referencing. No exception here, we do that. But there are a few things you have to be specific about.
 
 Following the table naming convention from the models section, and we'll have tables such as users, posts, diaries, tags or categories. So, taking the 2 tables we'll be joining (tags and posts seem like a good example), then your relationship table will be __posts_tags__. This is calculated by taking the 2 models we're joining, taking their __plurals__, joining them by an __underscore__, in __alphabetical order__. (So the table will be __posts_tags__, _NOT_ ~~tags_posts~~)
 
@@ -102,8 +105,8 @@ The columns you'll add which will be the foreign keys, should be your model name
 ### Add a relationship (assuming the posts and tags already exist)
 
 ```php
-$this->post->load(1);
-$this->post->add_tag(1);
+$this->post->load(1); // 1 is just an example ID of a post
+$this->post->add_tag(3); // 3 is just an example ID of a post
 ```
 
 So basically what we do, is run on our model the function add_{other model name}. SmartModel looks at the name of the other model, finds the table, finds the relationship table, and adds the entry.
@@ -111,8 +114,8 @@ So basically what we do, is run on our model the function add_{other model name}
 ### Remove a relationship
 
 ```php
-$this->post->load(1);
-$this->post->remove_tag(1);
+$this->post->load(1); // 1 is just an example ID of a post
+$this->post->remove_tag(3); // 3 is just an example ID of a post
 ```
 
 As above, we just call remove_{other model name}, and it disappears!
@@ -120,8 +123,8 @@ As above, we just call remove_{other model name}, and it disappears!
 ### Check existence of a relationship
 
 ```php
-$this->post->load(1);
-if ($this->post->has_tag(1) == true) {
+$this->post->load(1); // 1 is just an example ID of a post
+if ($this->post->has_tag(3) == true) { // 3 is just an example ID of a post
     echo 'Has tag';
 } else {
     echo "Doesn't have tag";
@@ -133,7 +136,7 @@ As above, we just call has_{other model name}, and it gives you a boolean tellin
 ### Get items of relationship
 
 ```php
-$this->post->load(1);
+$this->post->load(1); // 1 is just an example ID of a post
 $tags = $this->post->get_tags();
 ```
 
