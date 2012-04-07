@@ -16,7 +16,7 @@ Well, it gives you an easy way use your model to load, create, update or delete 
 
 Just copy this file to your ```/application/core/``` directory, and make your models extend MY_Model instead of CI_Model.
 
-### What if I already have a MY_Model function?
+### What if I already have a MY_Model class?
 
 Well, that makes things a bit more awkward, but still possible! Simplest way (although might not be the best) would probably be to rename this class to Smart_Model, append it to the bottom of the MY_Model file. Then make the MY_Model class that you have extend Smart_Model.
 
@@ -76,6 +76,8 @@ echo '<p>'.$this->post->text.'</p>';
 
 Simple as that!
 
+Note that the load method returns a boolean which tells us if the loading was successful.
+
 ### Update an entry
 
 ```php
@@ -120,7 +122,7 @@ $this->post->load(1); // 1 is just an example ID of a post
 $this->post->add_tag(3); // 3 is just an example ID of a tag
 ```
 
-So basically what we do, is run on our model the function add_{other model name}. SmartModel looks at the name of the other model, finds the table, finds the relationship table, and adds the entry.
+So basically what we do, is run on our model the method add_{other model name}. SmartModel looks at the name of the other model, finds the table, finds the relationship table, and adds the entry.
 
 Note that this could be done the other way around as well (add the post to the tag).
 
@@ -158,7 +160,7 @@ $this->post->load(1); // 1 is just an example ID of a post
 $tags = $this->post->get_tags(Tag::$MANY_TO_MANY);
 ```
 
-This will give you the rows of the relationship table returned, just as CodeIgniter's Database class returns them (the result() function, not the result_array() function).
+This will give you the rows of the relationship table returned, just as CodeIgniter's Database class returns them (the result() method, not the result_array() method).
 
 The ```$MANY_TO_MANY``` constant could be referenced by any of the following:
 
@@ -176,7 +178,7 @@ $this->user->load(1); // 1 is just an example ID of a post
 $posts = $this->user->get_posts(Post::$ONE_TO_MANY);
 ```
 
-This will give you the rows of the other table returned (posts table in this case), just as CodeIgniter's Database class returns them (the result() function, not the result_array() function).
+This will give you the rows of the other table returned (posts table in this case), just as CodeIgniter's Database class returns them (the result() method, not the result_array() method).
 
 The ```$ONE_TO_MANY``` constant could be referenced by any of the following:
 
@@ -207,11 +209,24 @@ $this->model->create(array('var1', 'var2', 'var3')); // reset the model to be em
 
 which will have exactly the same result.
 
+### ```load\_by\_{field}``` methods
+
+A simple way of loading a model by a different field, is to call the magic ```load\_by\_{field}``` methods. As long as the field you are using is unique (obviously), you'll be able to use this to load a model. Popular examples would be the following:
+
+```php
+$this->user->load_by_email('email@domain.com');
+// OR
+$this->user->load_by_username('manavo');
+```
+
+Then your model (user model in the example above) will be loaded in the same way as if you had run ```$this->user->load(1);```.
+
+Note that just as the ```load()``` method, the ```load\_by\_{field}``` methods also return a boolean which tells us if the loading was successful.
+
 ## Wow, does it get any fancier than that?
 
 Why yes, yes it does! However, I haven't written the documentation yet. The things remaining to be documented are:
 
-* load\_by\_{field}
 * extra fields on relationships
 * magic timestamps
 
