@@ -23,6 +23,7 @@ However, before we jump in, we should explain some conventions:
 Name your model the singular of the object it describes, and the table the plural of what it describes. So, model of __post__ equals a table of __posts__. Model of __diary__ equals a table of __diaries__.
 
 If you want to name your table something else, make sure you override the
+
 ```php
 protected $_table = null;
 ```
@@ -32,6 +33,7 @@ property of the SmartModel to whatever you want (posts, postings, bananas, or wh
 Name your primary key database field __id__.
 
 If it's something else, you should override the
+
 ```php
 protected $_primary_key = 'id';
 ```
