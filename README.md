@@ -97,7 +97,13 @@ That pretty much covers the basics!
 
 Again, let's start with some conventions!
 
-### Conventions for relationships
+### Conventions for One-To-Many relationships
+
+Traditionally, one-to-many relationships are crated by adding an extra column in one of the tables, referencing the primary key of the other table. For example, on a posts table, we will put a user_id column to show which user this posts belongs to.
+
+So following this, the SmartModel requires that we put a column named after the model (singular), followed by "\_id", into the table. Just like the example above.
+
+### Conventions for Many-To-Many relationships
 
 Traditionally, many-to-many relationships are created in a new table, including the IDs of the 2 other tables you're referencing. No exception here, we do that. But there are a few things you have to be specific about.
 
@@ -107,7 +113,7 @@ The columns you'll add which will be the foreign keys, should be your model name
 
 Also, don't forget to make the id fields foreign keys to their respective tables. And make a primary key out of the 2 columns combined.
 
-### Add a relationship (assuming the posts and tags already exist)
+### Add a Many-To-Many relationship (assuming the posts and tags already exist)
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
@@ -123,7 +129,7 @@ $this->tag->load(3); // 3 is just an example ID of a tag
 $this->tag->add_post(1); // 1 is just an example ID of a post
 ```
 
-### Remove a relationship
+### Remove a Many-To-Many relationship
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
@@ -132,7 +138,7 @@ $this->post->remove_tag(3); // 3 is just an example ID of a tag
 
 As above, we just call remove_{other model name}, and it disappears!
 
-### Check existence of a relationship
+### Check existence of a Many-To-Many relationship
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
@@ -145,14 +151,40 @@ if ($this->post->has_tag(3) == true) { // 3 is just an example ID of a tag
 
 As above, we just call has_{other model name}, and it gives you a boolean telling you if it exists or not.
 
-### Get items of relationship
+### Get items of a Many-To-Many relationship
 
 ```php
 $this->post->load(1); // 1 is just an example ID of a post
-$tags = $this->post->get_tags();
+$tags = $this->post->get_tags(Tag::$MANY_TO_MANY);
 ```
 
 This will give you the rows of the relationship table returned, just as CodeIgniter's Database class returns them (the result() function, not the result_array() function).
+
+The ```php $MANY_TO_MANY``` constant could be referenced by any of the following:
+
+```php
+Tag::$MANY_TO_MANY
+Post::$MANY_TO_MANY
+MY_Model::$MANY_TO_MANY
+```
+
+### Get items of a One-To-Many relationship
+
+```php
+// Assuming here the posts table has a user_id
+$this->user->load(1); // 1 is just an example ID of a post
+$posts = $this->user->get_posts(Post::$ONE_TO_MANY);
+```
+
+This will give you the rows of the other table returned (posts table in this case), just as CodeIgniter's Database class returns them (the result() function, not the result_array() function).
+
+The ```php $ONE_TO_MANY``` constant could be referenced by any of the following:
+
+```php
+User::$ONE_TO_MANY
+Post::$ONE_TO_MANY
+MY_Model::$ONE_TO_MANY
+```
 
 ## Wow, does it get any fancier than that?
 
