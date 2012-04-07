@@ -186,6 +186,27 @@ Post::$ONE_TO_MANY
 MY_Model::$ONE_TO_MANY
 ```
 
+## Slightly fancier than the basics
+
+### Creating a new object from POST data
+
+When you post a form to create a new object, you'll probably have to write the following line several times:
+
+```php
+$this->model->create(); // reset the model to be empty
+$this->model->var1 = $this->input->post('var1');
+$this->model->var2 = $this->input->post('var2');
+$this->model->var3 = $this->input->post('var3');
+```
+
+To save you the hassle of doing this, SmartModel allows you to pass an array of POST variable names into the ```php create()``` method. So instead of the code above, you can simply do the following:
+
+```php
+$this->model->create(array('var1', 'var2', 'var3')); // reset the model to be empty, and then read var1, var2 and var3
+```
+
+which will have exactly the same result.
+
 ## Wow, does it get any fancier than that?
 
 Why yes, yes it does! However, I haven't written the documentation yet. The things remaining to be documented are:

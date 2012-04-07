@@ -140,8 +140,16 @@ class MY_Model extends CI_Model {
         return $word;
     }
     
-    public function create() {
+    public function create($fields = null) {
         $this->reset();
+
+        // for each of the fields we want to read it, read it from the post data
+        // and set the value of the attribute on this object
+        if (is_array($fields)) {
+            foreach ($fields as $field) {
+                $this->$field = $this->input->post($field);
+            }
+        }
     }
     
     public function reset() {
