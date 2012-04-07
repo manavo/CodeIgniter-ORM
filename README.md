@@ -93,7 +93,7 @@ $this->post->delete();
 
 That pretty much covers the basics!
 
-## How about those relationships
+## How about those relationships?
 
 Again, let's start with some conventions!
 
@@ -158,7 +158,7 @@ This will give you the rows of the relationship table returned, just as CodeIgni
 
 Why yes, yes it does! However, I haven't written the documentation yet. The things remaining to be documented are:
 
-* load_by_{field}
+* load\_by\_{field}
 * extra fields on relationships
 * magic timestamps
 
