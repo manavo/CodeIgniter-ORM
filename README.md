@@ -160,7 +160,7 @@ $tags = $this->post->get_tags(Tag::$MANY_TO_MANY);
 
 This will give you the rows of the relationship table returned, just as CodeIgniter's Database class returns them (the result() function, not the result_array() function).
 
-The ```php $MANY_TO_MANY``` constant could be referenced by any of the following:
+The ```$MANY_TO_MANY``` constant could be referenced by any of the following:
 
 ```php
 Tag::$MANY_TO_MANY
@@ -178,7 +178,7 @@ $posts = $this->user->get_posts(Post::$ONE_TO_MANY);
 
 This will give you the rows of the other table returned (posts table in this case), just as CodeIgniter's Database class returns them (the result() function, not the result_array() function).
 
-The ```php $ONE_TO_MANY``` constant could be referenced by any of the following:
+The ```$ONE_TO_MANY``` constant could be referenced by any of the following:
 
 ```php
 User::$ONE_TO_MANY
@@ -199,7 +199,7 @@ $this->model->var2 = $this->input->post('var2');
 $this->model->var3 = $this->input->post('var3');
 ```
 
-To save you the hassle of doing this, SmartModel allows you to pass an array of POST variable names into the ```php create()``` method. So instead of the code above, you can simply do the following:
+To save you the hassle of doing this, SmartModel allows you to pass an array of POST variable names into the ```create()``` method. So instead of the code above, you can simply do the following:
 
 ```php
 $this->model->create(array('var1', 'var2', 'var3')); // reset the model to be empty, and then read var1, var2 and var3
