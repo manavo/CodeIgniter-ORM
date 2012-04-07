@@ -2,7 +2,7 @@
 
 class MY_Model extends CI_Model {
 
-    protected $_table;
+    protected $_table = null;
     protected $_primary_key = 'id';
     protected $_loaded_from_db;
     protected $_magic_timestamps = false;
@@ -16,7 +16,11 @@ class MY_Model extends CI_Model {
     function __construct() {
         parent::__construct();
         
-        $this->_table = strtolower($this->_pluralize(get_class($this)));
+        // if no table has been explicitly set (from the overriden class),
+        // we default to the plural of the classname
+        if (!$this->_table) {
+            $this->_table = strtolower($this->_pluralize(get_class($this)));
+        }
         
         $this->_CI =& get_instance();
         $this->reset();
