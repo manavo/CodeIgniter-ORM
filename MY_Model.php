@@ -351,6 +351,8 @@ class MY_Model extends CI_Model {
     
     public function load($param = null) {
         if (is_array($param) || is_object($param)) {
+            $this->_loaded_from_db = true;
+            
             foreach ($param as $column => $value) {
                 $this->_attributes[$column] = $value;
             }
