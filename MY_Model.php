@@ -29,7 +29,7 @@ class MY_Model extends CI_Model {
         $this->reset();
     }
     
-    private function _pluralize($word) {
+    protected function _pluralize($word) {
         $plural = array(
         '/(quiz)$/i' => '$1zes',
         '/^(ox)$/i' => '$1en',
@@ -81,7 +81,7 @@ class MY_Model extends CI_Model {
         return false;
     }
     
-    function _singularize($word) {
+    protected function _singularize($word) {
         $singular = array (
         '/(quiz)zes$/i' => '\1',
         '/(matr)ices$/i' => '\1ix',
