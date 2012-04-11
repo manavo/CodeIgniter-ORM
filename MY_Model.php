@@ -314,7 +314,7 @@ class MY_Model extends CI_Model {
         $relationship_table = $this->_get_relationship_table($other_table);
         $query = $this->_CI->db->get_where($relationship_table, array(strtolower(get_class($this)).'_id' => $this->{$this->_primary_key}, $other_model.'_id' => $other_id), 1, 0);
         if ($query->num_rows() == 1) {
-            return true;
+            return $query->row();
         } else {
             return false;
         }
