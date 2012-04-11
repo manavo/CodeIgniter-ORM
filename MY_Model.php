@@ -209,7 +209,10 @@ class MY_Model extends CI_Model {
             if (count($arguments) > 0) {
                 $relationship_type = array_shift($arguments);
             }
-            return $this->_get_relationship($other_table, $relationship_type);
+            if (count($arguments) > 0) {
+                $where = array_shift($arguments);
+            }
+            return $this->_get_relationship($other_table, $relationship_type, $where);
         } else if (substr($name, 0, 4) == 'has_') {
             $other_model = strtolower(substr($name, 4));
             if (is_array($arguments) && count($arguments) > 0) {
@@ -320,14 +323,17 @@ class MY_Model extends CI_Model {
         }
     }
     
-    private function _get_relationship($other_table, $relationship_type) {
+    private function _get_relationship($other_table, $relationship_type, $where) {
         if ($relationship_type == self::$MANY_TO_MANY) {
             $relationship_table = $this->_get_relationship_table($other_table);
             $query_table = $relationship_table;
         } else {
             $query_table = $other_table;
         }
-        $query = $this->_CI->db->get_where($query_table, array(strtolower(get_class($this)).'_id' => $this->{$this->_primary_key}));
+        
+        $where = array_merge(array(strtolower(get_class($this)).'_id' => $this->{$this->_primary_key}), $where);
+        
+        $query = $this->_CI->db->get_where($query_table, $where);
         return $query->result();
     }
     
