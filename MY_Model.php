@@ -380,6 +380,14 @@ class MY_Model extends CI_Model {
         return false;
     }
     
+    function getAll($where = null) {
+        if ($where) {
+            $this->_CI->db->where($where);
+        }
+        $query = $this->_CI->db->get($this->_table);
+        return $query->result();
+    }
+    
     function save() {
         if ($this->_magic_timestamps == true) {
             $this->{$this->_magic_timestamp_updated} = time();
