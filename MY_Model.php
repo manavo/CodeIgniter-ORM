@@ -341,8 +341,12 @@ class MY_Model extends CI_Model {
         $other_table = strtolower($this->_pluralize($other_model));
         $relationship_table = $this->_get_relationship_table($other_table);
         
-        $query = $this->_CI->db->delete($relationship_table, array(strtolower(get_class($this)).'_id' => $this->{$this->_primary_key}, $other_model.'_id' => $other_id));
-        return $query->result();
+        $this->_CI->db->delete($relationship_table, array(strtolower(get_class($this)).'_id' => $this->{$this->_primary_key}, $other_model.'_id' => $other_id));
+        if ($this->_CI->db->affected_rows() == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function load($param = null) {
