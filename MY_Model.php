@@ -382,10 +382,15 @@ class MY_Model extends CI_Model {
         return false;
     }
     
-    function getAll($where = null) {
+    function getAll($where = null, $order_by = null) {
         if ($where) {
             $this->_CI->db->where($where);
         }
+        if (!$order_by) {
+            $order_by = $this->_primary_key.' ASC';
+        }
+        
+        $this->_CI->db->order_by($order_by);
         $query = $this->_CI->db->get($this->_table);
         return $query->result();
     }
