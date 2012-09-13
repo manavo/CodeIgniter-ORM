@@ -232,7 +232,8 @@ Why yes, yes it does! However, I haven't written the documentation yet. The thin
 
 I'll get around to documenting those and commenting the code soon. Until then, you can have a go at reading through the code and seeing how those work!
 
-# License
+## License
+
 The MIT License
 
 Copyright (c) 2012, Philip Manavopoulos <@manavo>
