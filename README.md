@@ -1,4 +1,4 @@
-# CodeIgniter - SmartModel
+# CodeIgniter - ORM
 
 ## What is this?
 
